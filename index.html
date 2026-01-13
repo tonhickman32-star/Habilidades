@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌌 DIARIO DE UN PAYASO 🤡 - Antonio Fernández Duarte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-green: #00ff88;
+            --neon-yellow: #ffff00;
+            --dark-space: #0a0a1a;
+            --cyber-purple: #6a00ff;
+            --matrix-green: #00ff41;
+            --hologram-blue: #00b4ff;
+            --glitch-red: #ff003c;
+        }
+
+        body {
+            background: var(--dark-space);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 179, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 40% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 15%);
+        }
+
+        /* Fondo de partículas */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Terminal de inicio */
+        .cyber-terminal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 26, 0.98);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .terminal-header {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .neon-text {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue),
+                         0 0 20px var(--neon-blue),
+                         0 0 30px var(--neon-blue);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .matrix-text {
+            color: var(--matrix-green);
+            font-family: 'Orbitron', monospace;
+            overflow: hidden;
+            border-right: 3px solid var(--matrix-green);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--matrix-green) }
+        }
+
+        .hologram-button {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            margin-top: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hologram-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .hologram-button:hover::before {
+            left: 100%;
+        }
+
+        .hologram-button:hover {
+            box-shadow: 0 0 30px var(--neon-blue);
+            transform: scale(1.05);
+        }
+
+        /* Header flotante */
+        .cyber-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--neon-blue);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+            padding: 1rem 2rem;
+        }
+
+        .neon-grid {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .student-id {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--neon-green);
+        }
+
+        .glitch {
+            animation: glitch 1s linear infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Navegación holográfica */
+        .hologram-nav {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+        }
+
+        .holo-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(0, 243, 255, 0.1);
+            border: 2px solid var(--neon-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+        }
+
+        .holo-circle:hover {
+            background: rgba(0, 243, 255, 0.3);
+            transform: scale(1.2);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .holo-circle.active {
+            background: var(--neon-blue);
+            color: var(--dark-space);
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .holo-label {
+            position: absolute;
+            left: 80px;
+            background: rgba(10, 10, 26, 0.9);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--neon-blue);
+            border-radius: 5px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .holo-circle:hover .holo-label {
+            opacity: 1;
+        }
+
+        /* Contenedor principal 3D */
+        .cyber-container {
+            perspective: 1000px;
+            min-height: 100vh;
+            padding: 8rem 2rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Tarjetas holográficas */
+        .holo-card {
+            background: rgba(20, 20, 40, 0.7);
+            border: 1px solid var(--neon-blue);
+            border-radius: 15px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+        }
+
+        .holo-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .holo-card:hover {
+            transform: rotateY(10deg) scale(1.05);
+            box-shadow: 0 0 50px var(--neon-blue),
+                        inset 0 0 30px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-green);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--neon-blue);
+            padding-bottom: 1rem;
+        }
+
+        .week-glow {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .date-badge {
+            background: rgba(0, 243, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'Orbitron', monospace;
+            border: 1px solid var(--neon-blue);
+        }
+
+        .emoji-3d {
+            font-size: 4rem;
+            text-align: center;
+            margin: 1rem 0;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(180deg); }
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .status-light {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--glitch-red);
+            box-shadow: 0 0 10px var(--glitch-red);
+            animation: pulse 2s infinite;
+        }
+
+        .status-light.completed {
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        /* Panel de detalle futurista */
+        .cyber-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--neon-blue);
+            border-radius: 20px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            box-shadow: 0 0 100px rgba(0, 243, 255, 0.5),
+                        inset 0 0 50px rgba(0, 243, 255, 0.1);
+        }
+
+        .cyber-panel.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .panel-header {
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.2), rgba(106, 0, 255, 0.2));
+            padding: 2rem;
+            border-bottom: 2px solid var(--neon-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .close-holo {
+            background: transparent;
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-holo:hover {
+            background: var(--neon-pink);
+            color: var(--dark-space);
+            transform: rotate(90deg);
+            box-shadow: 0 0 30px var(--neon-pink);
+        }
+
+        .panel-content {
+            padding: 2rem;
+            height: 60vh;
+            overflow-y: auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .panel-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .panel-content::-webkit-scrollbar-track {
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+        .panel-content::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 4px;
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--matrix-green), transparent);
+            top: 0;
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* Progreso cuántico */
+        .quantum-progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(10, 10, 26, 0.9);
+            padding: 1.5rem;
+            border: 2px solid var(--neon-blue);
+            border-radius: 15px;
+            z-index: 100;
+            min-width: 300px;
+        }
+
+        .progress-ring {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .ring-circle {
+            fill: none;
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .ring-background {
+            stroke: rgba(0, 243, 255, 0.2);
+        }
+
+        .ring-progress {
+            stroke: var(--neon-green);
+            stroke-dasharray: 251;
+            stroke-dashoffset: 251;
+            transition: stroke-dashoffset 0.3s ease;
+            filter: drop-shadow(0 0 5px var(--neon-green));
+        }
+
+        .conclusion-core {
+            background: linear-gradient(45deg, var(--neon-pink), var(--cyber-purple));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .conclusion-core:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 0, 255, 0.4);
+        }
+
+        .conclusion-core:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Efectos especiales */
+        .energy-pulse {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, var(--neon-blue) 0%, transparent 70%);
+            opacity: 0;
+            animation: energyPulse 1s ease-out;
+        }
+
+        @keyframes energyPulse {
+            0% { transform: scale(0.1); opacity: 0.8; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        .data-stream {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: linear-gradient(transparent 95%, rgba(0, 255, 65, 0.1) 100%);
+            background-size: 100% 4px;
+            animation: streamFlow 20s linear infinite;
+        }
+
+        @keyframes streamFlow {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cyber-container {
+                grid-template-columns: 1fr;
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .hologram-nav {
+                display: none;
+            }
+            
+            .cyber-header {
+                padding: 1rem;
+            }
+            
+            .neon-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 0.5rem;
+            }
+            
+            .quantum-progress {
+                left: 50%;
+                transform: translateX(-50%);
+                right: auto;
+                bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo de partículas -->
+    <div id="particles-js"></div>
+    
+    <!-- Terminal de inicio -->
+    <div class="cyber-terminal" id="cyberTerminal">
+        <div class="terminal-header">
+            <h1 class="neon-text">DIARIO DE UN PAYASO 🤡 v3.14</h1>
+            <h2 class="matrix-text" id="matrixText">CARGANDO EXPERIENCIA DE HABILIDADES SOCIALES...</h2>
+        </div>
+        <div style="margin: 2rem; text-align: center;">
+            <div style="color: var(--neon-green); margin-bottom: 1rem;">
+                <i class="fas fa-user-astronaut fa-2x"></i>
+            </div>
+            <p style="color: var(--neon-blue); font-size: 1.2rem;">
+                IDENTIFICADO: ANTONIO FERNÁNDEZ DUARTE<br>
+                ASIGNATURA: HABILIDADES SOCIALES Y ANIMACIÓN DE GRUPOS<br>
+                PROFESOR: CHICO
+            </p>
+        </div>
+        <button class="hologram-button" id="initiateButton">
+            <i class="fas fa-play"></i> INICIAR SISTEMA
+        </button>
+    </div>
+
+    <!-- Header flotante -->
+    <header class="cyber-header">
+        <div class="neon-grid">
+            <div class="student-id">
+                <i class="fas fa-id-card"></i> AFD-2026-HS
+            </div>
+            <div style="text-align: center;">
+                <h1 class="neon-text glitch">DIARIO DE UN PAYASO 🤡</h1>
+                <p style="color: var(--neon-green); font-size: 0.9rem;">
+                    Habilidades Sociales
+                </p>
+            </div>
+            <div class="student-id">
+                <i class="fas fa-chalkboard-teacher"></i> PROF. CHICO
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegación holográfica -->
+    <nav class="hologram-nav">
+        <!-- Se generará dinámicamente -->
+    </nav>
+
+    <!-- Stream de datos -->
+    <div class="data-stream"></div>
+
+    <!-- Contenedor principal -->
+    <main class="cyber-container" id="cyberContainer">
+        <!-- Tarjetas se generarán dinámicamente -->
+    </main>
+
+    <!-- Progreso cuántico -->
+    <div class="quantum-progress">
+        <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1rem;">
+            <div class="progress-ring">
+                <svg width="80" height="80">
+                    <circle class="ring-circle ring-background" cx="40" cy="40" r="35"></circle>
+                    <circle class="ring-circle ring-progress" id="progressRing" cx="40" cy="40" r="35"></circle>
+                </svg>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                           font-family: 'Orbitron'; font-size: 0.9rem; color: var(--neon-green);">
+                    <span id="progressPercent">0%</span>
+                </div>
+            </div>
+            <div>
+                <div style="color: var(--neon-blue); font-family: 'Orbitron';">
+                    PROGRESO: <span id="completedCount">0</span>/<span id="totalCount">15</span>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--neon-green); margin-top: 0.5rem;">
+                    SISTEMA DE CONCLUSIÓN
+                </div>
+            </div>
+        </div>
+        <button class="conclusion-core" id="conclusionBtn" disabled>
+            <i class="fas fa-brain"></i> ACTIVAR NÚCLEO DE CONCLUSIÓN
+        </button>
+    </div>
+
+    <!-- Panel de detalle -->
+    <div class="cyber-panel" id="cyberPanel">
+        <div class="scan-line"></div>
+        <div class="panel-header">
+            <h2 class="panel-title" id="panelTitle">SEMANA 01</h2>
+            <button class="close-holo" id="closePanel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="panel-content" id="panelContent">
+            <!-- Contenido dinámico -->
+        </div>
+        <div style="padding: 2rem; border-top: 1px solid var(--neon-blue);">
+            <button id="completeWeek" style="background: linear-gradient(45deg, var(--neon-green), var(--neon-blue)); 
+                   color: var(--dark-space); border: none; padding: 12px 30px; font-family: 'Orbitron'; 
+                   font-size: 1.1rem; cursor: pointer; width: 100%; transition: all 0.3s;">
+                <i class="fas fa-check-double"></i> VALIDAR MEMORIA SEMANAL
+            </button>
+        </div>
+    </div>
+
+    <!-- Librería de partículas -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        // Configuración de partículas
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#00f3ff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#00ff88",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        });
+
+        // Datos del diario mejorados
+        const diaryData = [
+            {
+                week: 1,
+                date: "12 SEP 2025",
+                emoji: "✈️",
+                title: "MISIÓN ERASMUS",
+                content: "No pude acudir a la primera clase porque me visitaron unos amigos que hice de Erasmus.",
+                detailed: `Esta semana no pude asistir a la primera clase de Habilidades Sociales porque tuve la visita de amigos que conocí durante mi experiencia Erasmus. Aunque me hubiera gustado estar presente desde el inicio, el reencuentro con personas que compartieron momentos importantes de mi vida académica en el extranjero fue muy valioso.
+
+Durante estos días, recordamos anécdotas de nuestros países de acogida y cómo enfrentamos juntos los desafíos de adaptación cultural. Fue interesante notar cómo, incluso en un contexto informal, las habilidades sociales que tanto vamos a trabajar en esta asignatura se ponían en práctica constantemente.`,
+                completed: false,
+                color: "#00f3ff"
+            },
+            {
+                week: 2,
+                date: "19 SEP 2025",
+                emoji: "✈️",
+                title: "CONTINUACIÓN DEL VIAJE",
+                content: "De nuevo ausente por la visita de mis amigos Erasmus.",
+                detailed: `Por segunda semana consecutiva, no pude asistir a clase debido a la prolongada visita de mis amigos Erasmus. Decidimos aprovechar al máximo su estancia en Lanzarote, visitando los principales atractivos turísticos de la isla.
+
+Fue una experiencia interesante de intercambio cultural inverso: yo, que había sido acogido en sus países durante mi Erasmus, ahora les mostraba mi tierra. Noté cómo la capacidad de comunicar efectivamente, adaptarse al grupo y gestionar expectativas -todas habilidades que trabajaremos en esta asignatura- eran esenciales incluso en un contexto de ocio.`,
+                completed: false,
+                color: "#ff00ff"
+            },
+            {
+                week: 3,
+                date: "26 SEP 2025",
+                emoji: "😶‍🌫️",
+                title: "MEMORIA BORRADA",
+                content: "No recuerdo por qué falté, solo sé que sucedió.",
+                detailed: `No acudí a clase ese día y, sinceramente, no recuerdo el motivo exacto. A veces pasan estas cosas y el calendario avanza sin pedir explicaciones.
+
+Como forma de compensar esta ausencia (y porque siempre viene bien), dejo aquí una breve receta de tiramisú casero: mezcla queso mascarpone con azúcar y un toque de vainilla, añade huevos batidos y móntalo todo con capas de bizcochos empapados en café. Un poco de cacao por encima y a la nevera.
+
+No aprendí nada en clase ese día, pero al menos nadie se queda sin postre. Trato justo, ¿no?`,
+                completed: false,
+                color: "#ffff00"
+            },
+            {
+                week: 4,
+                date: "03 OCT 2025",
+                emoji: "🧑🏻‍🚀",
+                title: "PRIMER DÍA",
+                content: "¡Por fin en clase! Mi primera clase.",
+                detailed: `¡Por fin pude volver a clase! Después de tres semanas sin aparecer, me reincorporé por fin con mis compañeros y con Chico. Desde el primer momento se notaba muy buen ambiente: todo el mundo participaba, se reía y se implicaba en la actividad.
+
+Ese día empezamos a preparar un playback al estilo Tu cara me suena, que tendríamos que presentar la semana siguiente. Al principio iba un poco descolocado por haberme perdido las primeras clases, pero mis compañeros me integraron enseguida. Entre todos fuimos sacando ideas y organizando cómo queríamos que fuera la actuación.
+
+Lo que más me gustó fue lo sueltos que estábamos. Nadie tenía vergüenza: exagerábamos gestos, probábamos cosas sin miedo a equivocarnos y nos reíamos de nosotros mismos. Se notaba que en las semanas anteriores ya se había creado un clima de confianza, y pude engancharme a él sin problema.`,
+                completed: false,
+                color: "#00ff88"
+            },
+            {
+                week: 5,
+                date: "10 OCT 2025",
+                emoji: "🎤",
+                title: "PLAYBACK",
+                content: "Presentamos nuestros playbacks.",
+                detailed: `¡Hoy tocaba presentar los playbacks! Desde que entramos en clase se notaba ese ambiente raro entre nervios y ganas de que todo saliera bien. Cada grupo había currado bastante su actuación, con disfraces, coreografías y detalles que no me esperaba para nada.
+
+Alejandro y yo optamos por interpretar a Los del Río al ritmo de la Macarena. Fue curioso ver a compañeros que normalmente son más tranquilos soltarse por completo y meterse de lleno en el papel.
+
+Después de cada actuación, los aplausos eran sinceros. No se sentía como una competición, sino más bien como un espacio para disfrutar del trabajo de los demás y valorar el esfuerzo de cada grupo. Chico también lo destacó al final, poniendo el foco en el buen ambiente, el apoyo entre compañeros y la unión que se había creado en clase.
+
+A nivel personal, me vino genial romper la rutina y hacer algo diferente. Salir de la dinámica habitual del aula y simplemente pasarlo bien hizo que la clase se me pasara volando.`,
+                completed: false,
+                color: "#6a00ff"
+            },
+            {
+                week: 6,
+                date: "17 OCT 2025",
+                emoji: "🎨",
+                title: "COMUNICACIÓN EFECTIVA",
+                content: "Trabajamos en ejercicios prácticos sobre comunicación efectiva.",
+                detailed: `Hoy la clase fue un show, de esas que te hacen pensar pero también soltar unas buenas risas. Hicimos un montón de dinámicas sobre comunicación, y después de cada una había que parar y sacar la lección del día… o al menos intentarlo.
+
+Una actividad era pasar un mensaje en cadena y flipar viendo cómo terminaba totalmente cambiado. Otra era describir formas geométricas súper raras sin que nadie pudiera preguntar… vamos, un caos total, pero muy divertido.
+
+Lo mejor fue cuando nos pusimos a reflexionar. Hablamos de barreras en la comunicación, de cómo escuchamos lo que queremos escuchar y de la importancia de dar feedback… o al menos eso intentábamos entre risas y gestos exagerados.`,
+                completed: false,
+                color: "#ff003c"
+            },
+            {
+                week: 7,
+                date: "24 OCT 2025",
+                emoji: "🏃‍♂️",
+                title: "OCEAN LAVA",
+                content: "No hubo clase por coincidir con Ocean Lava.",
+                detailed: `Esta semana no hubo clase porque coincidía con el evento deportivo Ocean Lava. Al principio me apunté como voluntario y estaba bastante emocionado de participar en algo tan grande en la isla… pero entre las clases de alemán (sí, las mismas horas) y unos trabajos pendientes, al final no pude ir.
+
+Mientras algunos compis sí se lanzaban al lío del evento, yo aproveché para ponerme al día con otras asignaturas. No voy a mentir: me puse a dormir 🙄.`,
+                completed: false,
+                color: "#00b4ff"
+            },
+            {
+                week: 8,
+                date: "31 OCT 2025",
+                emoji: "🎭",
+                title: "ENSAYO",
+                content: "Trabajamos en la obra de teatro que presentaremos al final del semestre.",
+                detailed: `Hoy seguimos dándole caña a nuestra obra de teatro. Al principio no le tenía mucha fe a esto, pero poco a poco me he ido enganchando al rollo creativo y hasta lo estoy disfrutando.
+
+Trabajamos en parejas con escenas cortas: primero exageradísimas, como si estuviéramos en un sketch de comedia, y luego más sutiles. Es increíble cómo un pequeño cambio en la postura, la voz o la mirada puede cambiar toda la escena.
+
+También fuimos ajustando el guión entre todos, metiendo ideas que iban surgiendo sobre la marcha. La clase terminó con todos con ganas de seguir ensayando, aunque algunos todavía nos sentíamos un poco ridículos… pero, eh, eso forma parte de la diversión.`,
+                completed: false,
+                color: "#ff00ff"
+            },
+            {
+                week: 9,
+                date: "07 NOV 2025",
+                emoji: "🎭",
+                title: "ENSAYO CON JUANA",
+                content: "Juana, la experta en teatro, nos ayudó con técnicas de interpretación.",
+                detailed: `¡Qué pasada de sesión de teatro! Juana, que sabe un montón de dramatización, nos enseñó un montón de ejercicios para soltar el cuerpo, modular la voz y meternos en el papel de nuestros personajes. Al principio algunos estábamos súper cohibidos, pero su energía era tan contagiosa que enseguida nos soltamos.
+
+Hicimos cosas muy chulas: proyectar la voz sin gritar, usar bien el espacio del escenario y comunicar emociones solo con gestos y movimientos. Además, Juana nos dio feedback personalizado a cada uno, diciéndonos en qué éramos buenos y en qué podíamos mejorar.
+
+Lo que más me flipo es darme cuenta de que el teatro no es solo para "actores". Todo lo que aprendimos sirve también para la vida real: mejorar cómo nos comunicamos sin palabras, controlar emociones y entender mejor a los demás.`,
+                completed: false,
+                color: "#00ff88"
+            },
+            {
+                week: 10,
+                date: "14 NOV 2025",
+                emoji: "⛈️",
+                title: "ALERTA TEMPORAL",
+                content: "La clase se suspendió por alerta meteorológica. (Bendecidos con Dios 🙏🏻)",
+                detailed: `Esta semana Lanzarote se puso loca con un temporal brutal: lluvia intensa, alerta naranja… y la universidad decidió cancelar las clases por seguridad. Normalmente un día libre inesperado me habría encantado, pero esta vez me quedé un poco mosqueado: estábamos en pleno proceso creativo con el teatro y no quería perder ritmo.
+
+Aproveché la tarde para ponerme al día con los apuntes, ver algunos vídeos de técnicas teatrales en YouTube y darle vueltas a mi personaje. También estuve en contacto con mi grupo por WhatsApp, compartiendo ideas y planeando los próximos ensayos.
+
+Me pareció curioso ver que, aunque estuviéramos separados por la lluvia, el trabajo en equipo seguía funcionando. Entre risas, memes y mensajes serios, conseguimos coordinar un par de cosas para mejorar nuestras escenas y no perder la chispa.`,
+                completed: false,
+                color: "#00f3ff"
+            },
+            {
+                week: 11,
+                date: "21 NOV 2025",
+                emoji: "🎉",
+                title: "MARATÓN DE DINÁMICAS",
+                content: "Tuvimos múltiples actividades.",
+                detailed: `Hoy fue un auténtico maratón de dinámicas grupales. Empezamos con un juego de cartas que necesitaba coordinación y algo de estrategia colectiva, nada fácil cuando todos nos liamos un poco. Después practicamos RCP básica, recordando que ser socialmente responsables también tiene su parte práctica… y vital.
+
+Los juegos de confianza fueron todo un espectáculo: guiar a un compañero con los ojos tapados me hizo darme cuenta de lo importante que es dar instrucciones claras y que el otro se sienta seguro… aunque algunas veces acabamos chocando con las paredes 😂.
+
+Luego nos tocó bailar, y ahí sí que salimos de la zona de confort. Entre pasos raros y risas contagiosas, creo que nadie salió indemne. Pero la estrella del día fue el escape room educativo que Chico había montado: resolver puzzles bajo presión en equipo fue un reto total y nos hizo usar todas nuestras habilidades de comunicación, delegación y creatividad.`,
+                completed: false,
+                color: "#ffff00"
+            },
+            {
+                week: 12,
+                date: "28 NOV 2025",
+                emoji: "🌱",
+                title: "JORNADAS SOSTENIBLES",
+                content: "Asistimos a las jornadas obligatorias de turismo sostenible.",
+                detailed: `Esta semana nuestra clase de Habilidades Sociales fue reemplazada por ir obligatoriamente a las jornadas de turismo sostenible impuesta por NEREIDA 😴. Al principio no estaba muy emocionado, pensando en todo el tiempo que nos quitaría para ensayar teatro…
+
+Pero, sorpresa: algunas charlas me dejaron bastante sorprendido. Sobre todo una que hablaba de un alojamiento en el Amazonas, o algo así.
+
+La comida estuvo de lujo y, además, sirvió para hacer networking. Terminé hablando con profesionales del sector y, sin darme cuenta, entendí mejor cómo esta asignatura tiene más relación con mi futuro de lo que pensaba.`,
+                completed: false,
+                color: "#6a00ff"
+            },
+            {
+                week: 13,
+                date: "05 DIC 2025",
+                emoji: "🌉",
+                title: "PUENTE ACADÉMICO",
+                content: "Día de puente, no hubo clase.",
+                detailed: `Esta semana tuvimos un puente en el calendario y, sinceramente, fue un regalo del cielo. Después de tantas clases intensas y jornadas, venir un descanso justo en este momento fue perfecto.
+
+Lo aproveché para dormir más de lo normal (bendito colchón)😂.
+
+En el grupo de chat varios compañeros coincidimos en que necesitábamos este respiro antes de la recta final… y vaya que se notó.`,
+                completed: false,
+                color: "#ff003c"
+            },
+            {
+                week: 14,
+                date: "12 DIC 2025",
+                emoji: "🎭",
+                title: "ENSAYO GENERAL",
+                content: "Ensayo en Los Buches. Juana nos ayudó con el vestuario y Chico nos trajo tostadas.",
+                detailed: `Hoy nos fuimos a la sede de Los Buches para el ensayo general, y cambiar de espacio nos ayudó un montón a imaginar cómo sería la puesta en escena final. Juana, toda una crack del teatro, estuvo revisando el vestuario y asegurándose de que cada prenda ayudara a definir nuestros personajes.
+
+Ensayo tras ensayo fuimos puliendo movimientos, entradas, salidas y transiciones. Chico no paraba de darnos feedback: "más energía ahí", "pausa dramática aquí", "conéctense con la mirada en este momento"… ¡un no parar!
+
+Cuando ya empezábamos a estar agotados y las tripas rugían, apareció Chico con bandejas de tostadas de todo tipo. Ese detalle de cuidarnos nos vino tan bien como cualquier lección teórica sobre trabajo en equipo.
+
+La verdad es que estoy disfrutando mucho más de este proceso de lo que esperaba. Ver cómo todo va tomando forma me tiene motivado y con ganas de seguir ensayando.`,
+                completed: false,
+                color: "#00b4ff"
+            },
+            {
+                week: 15,
+                date: "16 DIC 2025",
+                emoji: "🏆",
+                title: "GRAN ESTRENO",
+                content: "Día del teatro.",
+                detailed: `¡El día del estreno finalmente llegó! Lamentablemente, un imprevisto de salud me impidió estar físicamente presente. Pero, hace unos días, cuando se publicó en Youtube pude ver a mis compañeros en el escenario, recordando todos los ensayos, las risas, los momentos de frustración y los logros, fue muy bonito.
+
+La función fue un éxito. Se notaba la coordinación, la energía y la conexión entre los ellos. 
+
+Chico, con una sonrisa que no podía disimular, felicitó a todo el equipo. Aunque no pude estar físicamente, me sentí parte de ese logro colectivo.`,
+                completed: false,
+                color: "#00ff88"
+            }
+        ];
+
+        // Conclusión final
+        const conclusionText = `
+            <div style="background: rgba(0, 243, 255, 0.1); padding: 2rem; border-radius: 10px; margin-bottom: 2rem; border: 1px solid var(--neon-blue);">
+                <h3 style="color: var(--neon-blue); font-family: 'Orbitron'; margin-bottom: 1rem;">
+                    <i class="fas fa-brain"></i> ANÁLISIS DE EXPERIENCIA COMPLETADO
+                </h3>
+                <p style="color: white; line-height: 1.8;">
+                    Después de varias semanas cursando esta asignatura, creo que ha sido una experiencia bastante distinta a lo que esperaba al inicio. No se ha limitado únicamente a aprender contenidos teóricos sobre habilidades sociales, sino que me ha exigido participar activamente, enfrentar situaciones nuevas y reflexionar sobre mi forma de relacionarme con los demás.
+                </p>
+            </div>
+
+            <div style="background: rgba(255, 0, 255, 0.1); padding: 2rem; border-radius: 10px; margin-bottom: 2rem; border: 1px solid var(--neon-pink);">
+                <h3 style="color: var(--neon-pink); font-family: 'Orbitron'; margin-bottom: 1rem;">
+                    <i class="fas fa-theater-masks"></i> PROCESO CREATIVO
+                </h3>
+                <p style="color: white; line-height: 1.8;">
+                    Las actividades prácticas, el trabajo en grupo, los ensayos y las propuestas creativas han tenido un papel fundamental durante todo el proceso. En muchos momentos me obligaron a salir de mi zona de confort, algo que no siempre resultó fácil, pero que terminó siendo positivo. Aunque la carga de trabajo me pareció elevada en ciertos momentos, reconozco que contribuyó a que la asignatura fuese más dinámica y a que el aprendizaje fuera más profundo.
+                </p>
+            </div>
+
+            <div style="background: rgba(0, 255, 136, 0.1); padding: 2rem; border-radius: 10px; margin-bottom: 2rem; border: 1px solid var(--neon-green);">
+                <h3 style="color: var(--neon-green); font-family: 'Orbitron'; margin-bottom: 1rem;">
+                    <i class="fas fa-users"></i> PROYECTO TEATRAL
+                </h3>
+                <p style="color: white; line-height: 1.8;">
+                    El proyecto teatral fue, sin duda, una de las partes más significativas de la asignatura. Más allá del resultado final, valoro especialmente todo el camino recorrido: la organización, la coordinación con mis compañeros, la gestión de los nervios y los imprevistos, y el esfuerzo constante que requirió. Esta experiencia me permitió desarrollar habilidades que no suelo trabajar en otras asignaturas y afrontar retos personales que no esperaba encontrarme en el ámbito universitario.
+                </p>
+            </div>
+
+            <div style="background: rgba(106, 0, 255, 0.1); padding: 2rem; border-radius: 10px; border: 1px solid var(--cyber-purple);">
+                <h3 style="color: var(--cyber-purple); font-family: 'Orbitron'; margin-bottom: 1rem;">
+                    <i class="fas fa-graduation-cap"></i> CONCLUSIÓN FINAL
+                </h3>
+                <p style="color: white; line-height: 1.8;">
+                    En conclusión, considero que esta asignatura ha sido una experiencia enriquecedora tanto a nivel académico como personal. Me llevo aprendizajes prácticos, mayor seguridad en mí mismo y recuerdos que, sin duda, permanecerán conmigo más allá de la universidad.
+              Un abrazo Chico 🤜🏻🤛🏻  </p>
+                <div style="text-align: right; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+                    <p style="color: var(--neon-blue); font-family: 'Orbitron';">
+                        <i class="fas fa-signature"></i> ANTONIO FERNÁNDEZ DUARTE
+                    </p>
+                    <p style="color: var(--neon-green);">
+                        ENERO 2026 | EUTL
+                    </p>
+                </div>
+            </div>
+        `;
+
+        // Variables del estado
+        let currentWeekIndex = 0;
+        let completedWeeks = [];
+        let currentProgress = 0;
+
+        // Elementos del DOM
+        const cyberTerminal = document.getElementById('cyberTerminal');
+        const matrixText = document.getElementById('matrixText');
+        const initiateButton = document.getElementById('initiateButton');
+        const cyberContainer = document.getElementById('cyberContainer');
+        const hologramNav = document.querySelector('.hologram-nav');
+        const cyberPanel = document.getElementById('cyberPanel');
+        const panelTitle = document.getElementById('panelTitle');
+        const panelContent = document.getElementById('panelContent');
+        const closePanel = document.getElementById('closePanel');
+        const completeWeekBtn = document.getElementById('completeWeek');
+        const conclusionBtn = document.getElementById('conclusionBtn');
+        const progressRing = document.getElementById('progressRing');
+        const progressPercent = document.getElementById('progressPercent');
+        const completedCount = document.getElementById('completedCount');
+        const totalCount = document.getElementById('totalCount');
+
+        // Textos para efecto matrix
+        const matrixTexts = [
+            "INICIALIZANDO INTERFAZ HOLOGRÁFICA...",
+            "CARGANDO MEMORIAS SEMANALES...",
+            "SINCRONIZANDO CON SISTEMA EDUCATIVO...",
+            "PREPARANDO EXPERIENCIA INMERSIVA...",
+            "BIENVENIDO, ANTONIO FERNÁNDEZ DUARTE..."
+        ];
+
+        // Efecto de escritura matrix
+        let matrixIndex = 0;
+        let charIndex = 0;
+
+        function typeMatrixText() {
+            if (matrixIndex < matrixTexts.length) {
+                if (charIndex < matrixTexts[matrixIndex].length) {
+                    matrixText.textContent += matrixTexts[matrixIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeMatrixText, 50);
+                } else {
+                    setTimeout(() => {
+                        matrixIndex++;
+                        charIndex = 0;
+                        matrixText.textContent = "";
+                        setTimeout(typeMatrixText, 1000);
+                    }, 2000);
+                }
+            }
+        }
+
+        // Inicializar la experiencia
+        function initExperience() {
+            cyberTerminal.style.display = 'none';
+            renderHologramNav();
+            renderCyberCards();
+            updateProgress();
+            createEnergyPulse(window.innerWidth / 2, window.innerHeight / 2);
+        }
+
+        // Renderizar navegación holográfica
+        function renderHologramNav() {
+            hologramNav.innerHTML = '';
+            diaryData.forEach((week, index) => {
+                const circle = document.createElement('div');
+                circle.className = `holo-circle ${week.completed ? 'active' : ''}`;
+                circle.innerHTML = `
+                    ${week.week}
+                    <div class="holo-label">Semana ${week.week}</div>
+                `;
+                circle.addEventListener('click', () => {
+                    scrollToWeek(index);
+                    createEnergyPulse(circle.offsetLeft + 30, circle.offsetTop + 30);
+                });
+                hologramNav.appendChild(circle);
+            });
+        }
+
+        // Renderizar tarjetas cibernéticas
+        function renderCyberCards() {
+            cyberContainer.innerHTML = '';
+            diaryData.forEach((week, index) => {
+                const card = document.createElement('div');
+                card.className = 'holo-card';
+                card.style.borderColor = week.color;
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                card.innerHTML = `
+                    <div class="status-light ${week.completed ? 'completed' : ''}"></div>
+                    <div class="card-header">
+                        <div class="week-glow">#${week.week.toString().padStart(2, '0')}</div>
+                        <div class="date-badge">${week.date}</div>
+                    </div>
+                    <div class="emoji-3d">${week.emoji}</div>
+                    <h3 class="card-title">${week.title}</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1.5rem;">
+                        ${week.content}
+                    </p>
+                    <div style="color: ${week.color}; font-family: 'Orbitron'; font-size: 0.9rem;">
+                        ${week.completed ? '✓ MEMORIA VALIDADA' : '● PENDIENTE DE REVISIÓN'}
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    openCyberPanel(index);
+                    createEnergyPulse(
+                        card.getBoundingClientRect().left + card.offsetWidth / 2,
+                        card.getBoundingClientRect().top + card.offsetHeight / 2
+                    );
+                });
+                
+                cyberContainer.appendChild(card);
+            });
+            
+            totalCount.textContent = diaryData.length;
+        }
+
+        // Abrir panel cibernético
+        function openCyberPanel(index) {
+            const week = diaryData[index];
+            currentWeekIndex = index;
+            
+            panelTitle.textContent = `SEMANA ${week.week.toString().padStart(2, '0')}: ${week.title}`;
+            panelContent.innerHTML = `
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="font-size: 5rem; margin-bottom: 1rem;">${week.emoji}</div>
+                    <div style="color: ${week.color}; font-family: 'Orbitron'; font-size: 1.2rem; margin-bottom: 0.5rem;">
+                        ${week.date}
+                    </div>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.3); padding: 2rem; border-radius: 10px; border: 1px solid ${week.color};">
+                    ${week.detailed.split('\n').map(paragraph => 
+                        paragraph.trim() ? `<p style="margin-bottom: 1.5rem; color: rgba(255, 255, 255, 0.9);">${paragraph}</p>` : ''
+                    ).join('')}
+                </div>
+            `;
+            
+            completeWeekBtn.style.background = week.completed 
+                ? 'linear-gradient(45deg, #666, #888)' 
+                : `linear-gradient(45deg, ${week.color}, var(--neon-green))`;
+            completeWeekBtn.disabled = week.completed;
+            completeWeekBtn.innerHTML = week.completed 
+                ? '<i class="fas fa-check-circle"></i> MEMORIA YA VALIDADA' 
+                : '<i class="fas fa-check-double"></i> VALIDAR MEMORIA SEMANAL';
+            
+            cyberPanel.classList.add('active');
+        }
+
+        // Scroll a semana específica
+        function scrollToWeek(index) {
+            const cards = document.querySelectorAll('.holo-card');
+            if (cards[index]) {
+                cards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Efecto de destello
+                cards[index].style.boxShadow = `0 0 100px ${diaryData[index].color}`;
+                setTimeout(() => {
+                    cards[index].style.boxShadow = '';
+                }, 1000);
+            }
+        }
+
+        // Completar semana
+        function completeWeek() {
+            const week = diaryData[currentWeekIndex];
+            
+            if (!week.completed) {
+                week.completed = true;
+                completedWeeks.push(currentWeekIndex);
+                
+                // Efecto visual
+                createEnergyPulse(
+                    window.innerWidth / 2,
+                    window.innerHeight / 2
+                );
+                
+                // Actualizar interfaz
+                renderHologramNav();
+                renderCyberCards();
+                updateProgress();
+                
+                // Cerrar panel después de un momento
+                setTimeout(() => {
+                    cyberPanel.classList.remove('active');
+                    createCyberNotification(week.week);
+                }, 500);
+            }
+        }
+
+        // Actualizar progreso - VERSIÓN CORREGIDA
+        function updateProgress() {
+            // 1. Calcular semanas completadas correctamente
+            const completadas = diaryData.filter(week => week.completed).length;
+            completedCount.textContent = completadas;
+            
+            // 2. Calcular porcentaje
+            currentProgress = (completadas / diaryData.length) * 100;
+            
+            // 3. Forzar 100% cuando esté completo (sin decimales)
+            const porcentajeFinal = completadas === diaryData.length ? 100 : Math.round(currentProgress);
+            progressPercent.textContent = `${porcentajeFinal}%`;
+            
+            // 4. Actualizar anillo de progreso
+            const circumference = 251; // stroke-dasharray
+            const offset = circumference - (porcentajeFinal / 100) * circumference;
+            
+            // 5. Aplicar cambios al círculo
+            progressRing.style.strokeDashoffset = offset;
+            
+            // 6. Habilitar botón de conclusión
+            const todasCompletadas = completadas === diaryData.length;
+            conclusionBtn.disabled = !todasCompletadas;
+            
+            // 7. Efecto especial cuando está completo
+            if (todasCompletadas) {
+                conclusionBtn.innerHTML = '<i class="fas fa-brain"></i> ACTIVAR NÚCLEO DE CONCLUSIÓN';
+                conclusionBtn.style.background = 'linear-gradient(45deg, var(--neon-pink), var(--cyber-purple))';
+                progressRing.style.filter = 'drop-shadow(0 0 10px var(--neon-green))';
+                progressRing.style.stroke = 'var(--neon-green)';
+                progressPercent.style.color = 'var(--neon-green)';
+                progressPercent.style.fontSize = '1.1rem';
+                progressPercent.style.fontWeight = 'bold';
+                progressPercent.textContent = '100%'; // Forzar 100%
+                progressRing.style.strokeDashoffset = '0'; // Forzar círculo lleno
+            }
+        }
+
+        // Mostrar conclusión
+        function showConclusion() {
+            const completadas = diaryData.filter(week => week.completed).length;
+            if (completadas === diaryData.length) {
+                // Crear panel de conclusión especial
+                const conclusionPanel = document.createElement('div');
+                conclusionPanel.className = 'cyber-panel';
+                conclusionPanel.style.width = '95%';
+                conclusionPanel.style.maxWidth = '1200px';
+                conclusionPanel.style.background = 'rgba(5, 5, 15, 0.98)';
+                conclusionPanel.innerHTML = `
+                    <div class="scan-line"></div>
+                    <div class="panel-header">
+                        <h2 class="panel-title">
+                            <i class="fas fa-brain"></i> NÚCLEO DE CONCLUSIÓN ACTIVADO
+                        </h2>
+                        <button class="close-holo" id="closeConclusion">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content" style="height: 70vh;">
+                        ${conclusionText}
+                    </div>
+                `;
+                
+                document.body.appendChild(conclusionPanel);
+                
+                setTimeout(() => {
+                    conclusionPanel.classList.add('active');
+                }, 100);
+                
+                // Configurar botón de cierre
+                document.getElementById('closeConclusion').addEventListener('click', () => {
+                    conclusionPanel.classList.remove('active');
+                    setTimeout(() => {
+                        conclusionPanel.remove();
+                    }, 500);
+                });
+                
+                // Efecto especial
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        createEnergyPulse(
+                            Math.random() * window.innerWidth,
+                            Math.random() * window.innerHeight
+                        );
+                    }, i * 200);
+                }
+            }
+        }
+
+        // Crear efecto de pulso de energía
+        function createEnergyPulse(x, y) {
+            const pulse = document.createElement('div');
+            pulse.className = 'energy-pulse';
+            pulse.style.left = `${x}px`;
+            pulse.style.top = `${y}px`;
+            pulse.style.width = '100px';
+            pulse.style.height = '100px';
+            document.body.appendChild(pulse);
+            
+            setTimeout(() => {
+                pulse.remove();
+            }, 1000);
+        }
+
+        // Notificación cyberpunk completa
+        function createCyberNotification(weekNumber) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: rgba(10, 10, 26, 0.95);
+                border: 2px solid var(--neon-green);
+                border-radius: 10px;
+                padding: 20px;
+                z-index: 9999;
+                transform: translateX(400px);
+                transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                font-family: 'Orbitron', monospace;
+                min-width: 300px;
+                box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+                backdrop-filter: blur(10px);
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                    <div style="color: var(--neon-green); font-size: 2rem;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--neon-green); margin: 0; font-size: 1.2rem;">
+                            MEMORIA VALIDADA
+                        </h3>
+                        <p style="color: var(--neon-blue); margin: 5px 0 0 0; font-size: 0.9rem;">
+                            Semana ${weekNumber}
+                        </p>
+                    </div>
+                </div>
+                <div style="border-top: 1px solid rgba(0, 255, 136, 0.3); padding-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                        <span style="color: var(--neon-green);">✓</span>
+                        <span style="color: white; font-size: 0.9rem;">Memoria almacenada en el núcleo</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                        <span style="color: var(--neon-green);">✓</span>
+                        <span style="color: white; font-size: 0.9rem;">Progreso actualizado</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: var(--neon-green);">✓</span>
+                        <span style="color: white; font-size: 0.9rem;">Siguiente semana desbloqueada</span>
+                    </div>
+                </div>
+                <div style="text-align: right; margin-top: 15px;">
+                    <button id="closeNotif" style="background: transparent; border: 1px solid var(--neon-pink); 
+                           color: var(--neon-pink); padding: 5px 15px; border-radius: 5px; cursor: pointer; 
+                           font-family: 'Orbitron'; font-size: 0.8rem;">
+                        ACKNOWLEDGE
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Efectos de pulso
+            for(let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createEnergyPulse(
+                        window.innerWidth - 100,
+                        100
+                    );
+                }, i * 200);
+            }
+            
+            // Animar entrada
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Efecto en el anillo de progreso
+            progressPercent.style.fontSize = '1.2rem';
+            progressPercent.style.color = 'var(--neon-green)';
+            setTimeout(() => {
+                progressPercent.style.fontSize = '';
+                progressPercent.style.color = '';
+            }, 1000);
+            
+            // Configurar cierre
+            notification.querySelector('#closeNotif').addEventListener('click', () => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => notification.remove(), 500);
+            });
+            
+            // Cierre automático después de 5 segundos
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.transform = 'translateX(400px)';
+                    setTimeout(() => notification.remove(), 500);
+                }
+            }, 5000);
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            initiateButton.addEventListener('click', () => {
+                // Efecto de transición
+                cyberTerminal.style.opacity = '0';
+                cyberTerminal.style.transform = 'scale(1.5)';
+                setTimeout(initExperience, 1000);
+            });
+            
+            closePanel.addEventListener('click', () => {
+                cyberPanel.classList.remove('active');
+            });
+            
+            completeWeekBtn.addEventListener('click', completeWeek);
+            
+            conclusionBtn.addEventListener('click', showConclusion);
+            
+            // Efectos de teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && cyberPanel.classList.contains('active')) {
+                    cyberPanel.classList.remove('active');
+                }
+                if (e.key === 'ArrowRight' && currentWeekIndex < diaryData.length - 1) {
+                    openCyberPanel(currentWeekIndex + 1);
+                }
+                if (e.key === 'ArrowLeft' && currentWeekIndex > 0) {
+                    openCyberPanel(currentWeekIndex - 1);
+                }
+            });
+            
+            // Efectos de movimiento de tarjetas
+            document.querySelectorAll('.holo-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = ((x - centerX) / centerX) * 5;
+                    const rotateX = ((centerY - y) / centerY) * 5;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Inicializar cuando se cargue la página
+        document.addEventListener('DOMContentLoaded', () => {
+            typeMatrixText();
+            setupEventListeners();
+        });
+    </script>
+</body>
+</html>
