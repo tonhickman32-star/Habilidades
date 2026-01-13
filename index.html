@@ -175,61 +175,6 @@
             100% { transform: translate(0); }
         }
 
-        /* Navegación holográfica */
-        .hologram-nav {
-            position: fixed;
-            left: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 50;
-        }
-
-        .holo-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(0, 243, 255, 0.1);
-            border: 2px solid var(--neon-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 1.5rem 0;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            font-family: 'Orbitron', monospace;
-            font-weight: bold;
-        }
-
-        .holo-circle:hover {
-            background: rgba(0, 243, 255, 0.3);
-            transform: scale(1.2);
-            box-shadow: 0 0 20px var(--neon-blue);
-        }
-
-        .holo-circle.active {
-            background: var(--neon-blue);
-            color: var(--dark-space);
-            box-shadow: 0 0 30px var(--neon-blue);
-        }
-
-        .holo-label {
-            position: absolute;
-            left: 80px;
-            background: rgba(10, 10, 26, 0.9);
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--neon-blue);
-            border-radius: 5px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .holo-circle:hover .holo-label {
-            opacity: 1;
-        }
-
         /* Contenedor principal 3D */
         .cyber-container {
             perspective: 1000px;
@@ -546,10 +491,6 @@
                 padding: 6rem 1rem 2rem;
             }
             
-            .hologram-nav {
-                display: none;
-            }
-            
             .cyber-header {
                 padding: 1rem;
             }
@@ -611,11 +552,6 @@
             </div>
         </div>
     </header>
-
-    <!-- Navegación holográfica -->
-    <nav class="hologram-nav">
-        <!-- Se generará dinámicamente -->
-    </nav>
 
     <!-- Stream de datos -->
     <div class="data-stream"></div>
@@ -980,7 +916,6 @@ Chico, con una sonrisa que no podía disimular, felicitó a todo el equipo. Aunq
         const matrixText = document.getElementById('matrixText');
         const initiateButton = document.getElementById('initiateButton');
         const cyberContainer = document.getElementById('cyberContainer');
-        const hologramNav = document.querySelector('.hologram-nav');
         const cyberPanel = document.getElementById('cyberPanel');
         const panelTitle = document.getElementById('panelTitle');
         const panelContent = document.getElementById('panelContent');
@@ -1025,28 +960,9 @@ Chico, con una sonrisa que no podía disimular, felicitó a todo el equipo. Aunq
         // Inicializar la experiencia
         function initExperience() {
             cyberTerminal.style.display = 'none';
-            renderHologramNav();
             renderCyberCards();
             updateProgress();
             createEnergyPulse(window.innerWidth / 2, window.innerHeight / 2);
-        }
-
-        // Renderizar navegación holográfica
-        function renderHologramNav() {
-            hologramNav.innerHTML = '';
-            diaryData.forEach((week, index) => {
-                const circle = document.createElement('div');
-                circle.className = `holo-circle ${week.completed ? 'active' : ''}`;
-                circle.innerHTML = `
-                    ${week.week}
-                    <div class="holo-label">Semana ${week.week}</div>
-                `;
-                circle.addEventListener('click', () => {
-                    scrollToWeek(index);
-                    createEnergyPulse(circle.offsetLeft + 30, circle.offsetTop + 30);
-                });
-                hologramNav.appendChild(circle);
-            });
         }
 
         // Renderizar tarjetas cibernéticas
@@ -1119,20 +1035,6 @@ Chico, con una sonrisa que no podía disimular, felicitó a todo el equipo. Aunq
             cyberPanel.classList.add('active');
         }
 
-        // Scroll a semana específica
-        function scrollToWeek(index) {
-            const cards = document.querySelectorAll('.holo-card');
-            if (cards[index]) {
-                cards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // Efecto de destello
-                cards[index].style.boxShadow = `0 0 100px ${diaryData[index].color}`;
-                setTimeout(() => {
-                    cards[index].style.boxShadow = '';
-                }, 1000);
-            }
-        }
-
         // Completar semana
         function completeWeek() {
             const week = diaryData[currentWeekIndex];
@@ -1148,15 +1050,16 @@ Chico, con una sonrisa que no podía disimular, felicitó a todo el equipo. Aunq
                 );
                 
                 // Actualizar interfaz
-                renderHologramNav();
                 renderCyberCards();
                 updateProgress();
                 
-                // Cerrar panel después de un momento
+                // Notificación futurista
+                createCyberNotification(week.week);
+                
+                // Cerrar panel suavemente
                 setTimeout(() => {
                     cyberPanel.classList.remove('active');
-                    createCyberNotification(week.week);
-                }, 500);
+                }, 800);
             }
         }
 
