@@ -451,6 +451,27 @@
             cursor: not-allowed;
         }
 
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(0, 243, 255, 0.3);
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            color: var(--neon-blue);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+
+        }
+
         /* Efectos especiales */
         .energy-pulse {
             position: absolute;
@@ -507,6 +528,15 @@
                 right: auto;
                 bottom: 1rem;
             }
+            
+            footer {
+                padding: 1.5rem;
+            }
+            
+            footer p {
+                font-size: 0.9rem;
+            }
+            
         }
     </style>
 </head>
@@ -525,9 +555,9 @@
                 <i class="fas fa-user-astronaut fa-2x"></i>
             </div>
             <p style="color: var(--neon-blue); font-size: 1.2rem;">
-                IDENTIFICADO: ANTONIO FERNÁNDEZ DUARTE<br>
+                IDENTIFICADO: JUAN ANTONIO CARREÑO CLEMENTE - CHICO <br>
                 ASIGNATURA: HABILIDADES SOCIALES Y ANIMACIÓN DE GRUPOS<br>
-                PROFESOR: CHICO
+                HECHO POR: ANTONIO FERNÁNDEZ DUARTE
             </p>
         </div>
         <button class="hologram-button" id="initiateButton">
@@ -560,6 +590,11 @@
     <main class="cyber-container" id="cyberContainer">
         <!-- Tarjetas se generarán dinámicamente -->
     </main>
+
+    <!-- Footer -->
+    <footer>
+        <p> HECHO CON PACIENCIA, CAFÉ Y GANAS DE DORMIR POR ANTONIO FERNÁNDEZ DUARTE :) </p>
+    </footer>
 
     <!-- Progreso cuántico -->
     <div class="quantum-progress">
